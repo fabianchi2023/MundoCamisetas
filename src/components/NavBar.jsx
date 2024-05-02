@@ -17,18 +17,18 @@ const NavBar = () => {
             </div>
             <div className="row">
                 <div className="col">
-                    <ul className="nav nav-underline">
+                    <ul className="nav nav-underline ">
                         <li className="nav-item">
-                            <NavLink className="nav-link"to={"/"}>Inicio</NavLink>
+                            <NavLink className="nav-link text-primary"to={"/"}>Inicio</NavLink>
                         </li>
                         <li className="nav-item">
-                            <NavLink className="nav-link" to={"/category/TemporadaActual"}>Temporada Actual</NavLink>
+                            <NavLink className="nav-link text-primary" to={"/category/TemporadaActual"}>Temporada Actual</NavLink>
                         </li>
                         <li className="nav-item">
-                            <NavLink className="nav-link" to={"/category/NuevosIngresos"}>Nuevos Ingresos</NavLink>
+                            <NavLink className="nav-link text-primary" to={"/category/NuevosIngresos"}>Nuevos Ingresos</NavLink>
                         </li>
                         <li className="nav-item">
-                            <NavLink className="nav-link" to={"/category/Selecciones"}>Selecciones</NavLink>
+                            <NavLink className="nav-link text-primary" to={"/category/Selecciones"}>Selecciones</NavLink>
                         </li>
                     </ul>
                 </div>

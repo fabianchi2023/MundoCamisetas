@@ -24,7 +24,7 @@ const ItemListContainer = () => {
     return (
         <div className="container">
             <div className="row my-1">
-                <h1 className="text-center my-4">Bienvenidos al mundo de las camisetas</h1>
+                <h1 className="text-center my-4 text-primary">Bienvenidos al mundo de las camisetas</h1>
                 <ItemList items={productos}/>
             </div>
         </div>

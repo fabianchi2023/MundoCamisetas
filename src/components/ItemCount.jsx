@@ -1,30 +1,33 @@
-import { useState } from "react"
-
+import { useEffect, useState } from "react"
 
 const ItemCount = ({stock}) => {
     
-    const [contador, setContador] = useState(0)
+    const [cantidad, setCantidad] = useState(0)
     const [stockTotal, setStockTotal] = useState(stock)
 
     const quitar = () => {
-        if (contador > 1) {
-            setContador (contador-1)
+        if (cantidad > 1) {
+            setCantidad (cantidad-1)
         }
     }
 
     const agregar = () => {
-        if (contador < stockTotal) {
-            setContador (contador+1)
+        if (cantidad < stockTotal) {
+            setCantidad (cantidad+1)
         }
     }
 
     const onAdd = () => {
-        if (contador <= stockTotal){
-            setStockTotal (stockTotal - contador)
-            console.log("agregaste " + contador + " productos al carrito");
-            setContador(0)
+        if (cantidad <= stockTotal){
+            setStockTotal (stockTotal - cantidad)
+            console.log("agregaste " + cantidad + " productos al carrito");
+            setCantidad(0)
         }
     }
+
+    useEffect (() => {
+        setStockTotal(stock);
+    }, [stock])
 
     return (
         <div className="container my-5">
@@ -32,7 +35,7 @@ const ItemCount = ({stock}) => {
                 <div className="col">
                     <div className="btn-group" role="group" aria-label="Basic example">
                         <button type="button" className="btn btn-primary" onClick={quitar}> - </button>
-                        <button type="button" className="btn btn-primary"> {contador} </button>
+                        <button type="button" className="btn btn-primary"> {cantidad} </button>
                         <button type="button" className="btn btn-primary" onClick={agregar}> + </button>
                     </div>
                 </div>
