@@ -1,6 +1,11 @@
 import ItemCount from "./ItemCount"
 
 const ItemDetail = ({item}) => {
+
+    const onAdd = (quantity) => {
+        console.log("agregaste: " + quantity);
+    }
+
     return (
         <div className="container">
             <div className="row">
@@ -12,7 +17,7 @@ const ItemDetail = ({item}) => {
                     <p>Precio: ${item.precio}</p>
                     <p>Stock: {item.stock}</p>
                     <p>{item.detalle}</p>
-                    <ItemCount stock={item.stock} />
+                    <ItemCount stock={item.stock} onAdd={onAdd} />
                 </div>
             </div>
         </div>
