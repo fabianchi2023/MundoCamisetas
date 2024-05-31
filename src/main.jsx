@@ -21,16 +21,5 @@ const firebaseConfig = {
 // Initialize Firebase
 initializeApp(firebaseConfig);
 
-// vite.config.js
-import { defineConfig } from 'vite';
-
-export default defineConfig({
-  build: {
-    rollupOptions: {
-      external: ['firebase/app'],
-    },
-  },
-});
-
 ReactDOM.createRoot(document.getElementById('root')).render(<App />)
 
