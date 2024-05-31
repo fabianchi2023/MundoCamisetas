@@ -22,13 +22,13 @@ const NavBar = () => {
                             <NavLink className="nav-link text-primary"to={"/"}>Inicio</NavLink>
                         </li>
                         <li className="nav-item">
-                            <NavLink className="nav-link text-primary" to={"/category/TemporadaActual"}>Temporada Actual</NavLink>
+                            <NavLink className="nav-link text-primary" to={"/category/ChampionLeague"}>Champions League</NavLink>
                         </li>
                         <li className="nav-item">
-                            <NavLink className="nav-link text-primary" to={"/category/NuevosIngresos"}>Nuevos Ingresos</NavLink>
+                            <NavLink className="nav-link text-primary" to={"/category/SeleccionesMasculinas"}>Selecciones Masculinas</NavLink>
                         </li>
                         <li className="nav-item">
-                            <NavLink className="nav-link text-primary" to={"/category/Selecciones"}>Selecciones</NavLink>
+                            <NavLink className="nav-link text-primary" to={"/category/SeleccionesFemeninas"}>Selecciones Femeninas</NavLink>
                         </li>
                     </ul>
                 </div>

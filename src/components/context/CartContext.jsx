@@ -31,8 +31,16 @@ const CartContextProvider = ({children}) => {
         return carrito.some(item => item.id === id)
     }
 
+    const contarProductos = () => {
+        return carrito.reduce((acumulador, item) => acumulador += item.quantity, 0)
+    }
+
+    const calcularCostoProductos = () => {
+        return carrito.reduce((acumulador, item) => acumulador += item.quantity * item.precio, 0)
+    }
+
     return (
-        <CartContext.Provider value={{carrito, addItem, removeItem, clear}}>
+        <CartContext.Provider value={{carrito, addItem, removeItem, clear, contarProductos, calcularCostoProductos}}>
             {children}
         </CartContext.Provider>
     )
