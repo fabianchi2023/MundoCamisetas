@@ -1,42 +1,56 @@
-import { useEffect, useState } from "react";
-import arrayProductos from "./productos.json"
-import { addDoc, collection, getDocs, getFirestore } from "firebase/firestore";
+import { useContext, useEffect, useState } from "react";
+import { CartContext } from "./context/CartContext";
+import { addDoc, collection, getFirestore } from "firebase/firestore";
+import { Link } from "react-router-dom";
 
 const CheckOut = () => {
 
-    const [carrito, setCarrito] = useState ([])
+    const {carrito,contarProductos, calcularCostoProductos, clear} =useContext(CartContext)
     const [nombre, setNombre] = useState("")
     const [email, setEmail] = useState("")
     const [telefono, setTelefono] = useState("")
     const [idCompra, setIdCompra] = useState("")
 
     
+    const generarPedido = () => {
 
-    useEffect (() => {
+        if(nombre == ""){
+            return false
+        } else if(email == "") {
+            return false
+        } else if (telefono == ""){
+            return false
+        }
+
+        const buyer = {nombreCampo: nombre, emailCampo: email, telefonoCampo: telefono}
+        const items = carrito.map (item => ({id:item.id, title:item.producto, price: item.precio, quantity:item.quantity}))
+        const orden = {buyer:buyer, items:items, total: calcularCostoProductos()}
         const db = getFirestore()
-        const itemsCollection = collection(db, "Productos")
-        getDocs(itemsCollection).then(elementos => {
-            if (elementos.size > 0){
-                setCarrito(elementos.docs.map(item => ({id:item.id, ...item.data()})))
-            }
-        })
-    }, [])
-
-    const calcularTotal = () => {
-
-        return carrito.reduce((acumulador, producto) => acumulador += producto.precio, 0)
+        const ordersCollection = collection(db, "Ordenes")
+         addDoc(ordersCollection, orden).then(data => {
+            setIdCompra(data.id)
+            setNombre("")
+            setEmail("")
+            setTelefono("")
+            clear()
+         })
 
     }
 
-    const generarPedido = () => {
-        const buyer = {nombreCampo: nombre, emailCampo: email, telefonoCampo: telefono}
-        const items = carrito.map (item => ({id:item.id, title:item.producto, price: item.precio}))
-        const orden = {buyer:buyer, items:items, total: calcularTotal()}
-        const db = getFirestore()
-         const ordersCollection = collection(db, "Ordenes")
-         addDoc(ordersCollection, orden).then(data => {
-             setIdCompra(data.id)
-         })
+    if (contarProductos() == 0 && !idCompra) {
+
+        return(
+            <div className="container">
+                <div className="row">
+                    <div className="col text-center">
+                        <div className="alert alert-info" role="alert">
+                             <h2>Tu carrito esta vacio. Vuelve a la tienda para agregar productos!</h2>
+                             <Link to={"/"} className="btn btn-primary">Volver a la tienda</Link>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        )
 
     }
 
@@ -63,16 +77,17 @@ const CheckOut = () => {
                 <div className="col">
                     <table className="table">
                         <tbody>
-                           {carrito.map(producto =>(
+                            {carrito.map(producto =>(
                             <tr key={producto.id}>
                                 <td><img src={producto.imagen} alt={producto.producto} width={80} /></td>
-                                <td>{producto.producto}</td>
-                                <td>${producto.precio}</td>
+                                <td className="align-middle text-center">{producto.producto}</td>
+                                <td className="align-middle text-center">Cantidad: {producto.quantity}</td>
+                                <td className="align-middle text-center">${producto.precio}</td>
                             </tr>
                            ))} 
                            <tr>
-                                <td colSpan={2}>Total</td>
-                                <td className="text-end">${calcularTotal()}</td>
+                                <td colSpan={3}><b>Total</b></td>
+                                <td className="text-end"><b>${calcularCostoProductos()}</b></td>
                            </tr>
                         </tbody>
                     </table>

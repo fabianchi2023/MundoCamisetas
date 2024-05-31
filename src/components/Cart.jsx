@@ -30,18 +30,21 @@ const Cart = () => {
                 <div className="col">
                     <table className="table">
                         <tbody>
+                            <tr>
+                               <td colSpan={6} className="text-end"><button className="btn btn-primary" onClick={clear}>Vaciar carrito completo</button></td> 
+                            </tr>
                             {carrito.map(item => (
                                 <tr key={item.id}>
                                     <td><img src={item.imagen} alt={item.producto} width={80} /></td>
-                                    <td>{item.producto}</td>
-                                    <td>${item.precio}</td>
-                                    <td>{item.quantity}</td>
-                                    <td className="text-end"><img src={papelera} width={20} /></td>
+                                    <td className="align-middle text-center">{item.producto}</td>
+                                    <td className="align-middle text-center">${item.precio}</td>
+                                    <td className="align-middle text-center">Cantidad:{item.quantity}</td>
+                                    <td className="align-middle text-end"><img src={papelera} width={30} onClick={() => {removeItem(item.id)}}/></td>
                                 </tr>
                                 ))}
                                 <tr>
-                                    <td colSpan={2}>Total</td>
-                                    <td className="text-end">${calcularCostoProductos()}</td>
+                                    <td colSpan={2}><b>Total</b></td>
+                                    <td className="text-center"><b>${calcularCostoProductos()}</b></td>
                                     <td>&nbsp;</td>
                                     <td className="text-end"><Link to={"/checkout"} className="btn btn-primary">Chekout</Link></td>
                                 </tr>

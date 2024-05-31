@@ -1,22 +1,22 @@
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
-import arrayProductos from "./productos.json"
 import ItemDetail from "./ItemDetail"
+import { doc, getDoc, getFirestore } from "firebase/firestore"
+import Loading from "./Loading"
 
 const ItemDetailContainer = () => {
     const [item, setItem] = useState([])
     const {id} = useParams()
+    const [visible, setVisible] = useState (true)
 
     useEffect (() => {
-        const promesa = new Promise (res => {
-            setTimeout(() => {
-                const produ = arrayProductos.find (item => item.id == parseInt(id))
-                res (produ)
-            }, 1000);
-        })
-
-        promesa.then (rta => {
-            setItem(rta)
+        const conexionALaBase = getFirestore()
+        const documentoRef = doc(conexionALaBase, "Productos", id)
+        getDoc(documentoRef).then(elemento => {
+            if (elemento.exists()){
+                setItem({id:elemento.id, ...elemento.data()})
+                setVisible(false)
+            }
         })
     }, [id])
 
@@ -24,7 +24,7 @@ const ItemDetailContainer = () => {
     return (
         <div className="container">
             <div className="row my-5">
-                <ItemDetail item={item}/>
+                {visible ? <Loading /> : <ItemDetail item={item}/>}
             </div>
         </div>
     )

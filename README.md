@@ -1,8 +1,6 @@
-# React + Vite
+# CURSO REACT - COMISION 54115
+## PROYECTO FINAL: MUNDOCAMISETAS
+### ALUMNO: FABIO BIANCHI
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+El proyecto final presenta el e-commerce de mi (futuro) negocio de camisetas y basado en el amor por el futbol.
+La idea es poder realizar la APP punta a punta hasta ponerla en real funcionamiento.
